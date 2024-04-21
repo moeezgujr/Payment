@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Other Tags -->
+    <title>Moyasar payment form</title>
+    <meta charset="UTF-8" />
+
+    <!-- Moyasar Styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css"
+    />
+
+    <!-- Moyasar Scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+    <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!-- Download CSS and JS files in case you want to test it locally, but use CDN in production -->
+  </head>
+
+  <body>
+    <!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+
+    <section
+      style="
+        display: flex;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        justofy-items: center;
+      "
+    >
+      <div class="mysr-form" style="width: 360px; margin: 40px 0 0 0"></div>
+    </section>
+
+    <script>
+      Moyasar.init({
+        element: ".mysr-form",
+        amount: 1000,
+        currency: "SAR",
+        description: "Coffee Order #1",
+        publishable_api_key: "pk_test_8fsFoNAjXJBB8i7Yon8WD3aRx1dCHCfhhe1fuzJU",
+        callback_url: "https://qa--kplmsdev.netlify.app/",
+        methods: ["creditcard"],
+        // on_completed: function (payment) {
+        //   return new Promise(function (resolve, reject) {
+        //     console.log(payment);
+        //     // // savePayment is just an example, your usage may vary.
+        //     // if (savePayment(payment)) {
+        //     //   resolve({});
+        //     // } else {
+        //     //   reject();
+        //     // }
+        //   });
+        // },
+      });
+    </script>
+  </body>
+</html>

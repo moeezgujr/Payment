@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Verification</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #paymentMessage {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid green;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="paymentMessage" class="hidden">Payment is successfully verified!</div>
+
+    <script>
+        // This could be replaced by your actual payment verification logic
+        const isPaymentVerified = true;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const paymentMessage = document.getElementById('paymentMessage');
+            
+            if (true) {
+                paymentMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
