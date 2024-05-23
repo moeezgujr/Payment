@@ -1,51 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <!-- Other Tags -->
-    <title>Moyasar payment form</title>
     <meta charset="UTF-8" />
-
-    <!-- Moyasar Styles -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Moyasar payment form</title>
     <link
       rel="stylesheet"
       href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css"
     />
-
-    <!-- Moyasar Scripts -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
     <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
 
-    <!-- Download CSS and JS files in case you want to test it locally, but use CDN in production -->
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      .mysr-form {
+        width: 90%;
+        max-width: 360px;
+        margin: 40px 0;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .mysr-form {
+          width: 90%;
+          max-width: none;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
-
-    <section
-      style="
-        display: flex;
-        height: 100%;
-        width: 100%;
-        justify-content: center;
-        justofy-items: center;
-      "
-    >
-      <div class="mysr-form" style="width: 360px; margin: 40px 0 0 0"></div>
-    </section>
+    <div class="container">
+      <div class="mysr-form"></div>
+    </div>
 
     <script>
       Moyasar.init({
@@ -54,7 +56,8 @@
         currency: "SAR",
         description: "Coffee Order #1",
         publishable_api_key: "pk_test_8fsFoNAjXJBB8i7Yon8WD3aRx1dCHCfhhe1fuzJU",
-        callback_url: "https://payment-99dh39s7v-moeezs-projects-1bf91560.vercel.app/Message.html/",
+        callback_url:
+          "https://payment-99dh39s7v-moeezs-projects-1bf91560.vercel.app/Message.html/",
         methods: ["creditcard", "stcpay"],
         // on_completed: function (payment) {
         //   return new Promise(function (resolve, reject) {
