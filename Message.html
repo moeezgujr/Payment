@@ -1,76 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Moyasar payment form</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css"
-    />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
-    <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Verification</title>
     <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: Arial, sans-serif;
-      }
-
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-      }
-
-      .mysr-form {
-        width: 90%;
-        max-width: 360px;
-        margin: 40px 0;
-      }
-
-      @media only screen and (max-width: 600px) {
-        .mysr-form {
-          width: 90%;
-          max-width: none;
+        .hidden {
+            display: none;
         }
-      }
-    </style>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="mysr-form"></div>
-    </div>
+        #paymentMessage {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid green;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        #errorMessage {
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid red;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="paymentMessage" class="hidden">Payment is successfully verified!</div>
+    <div id="errorMessage" class="hidden">Payment verification failed!</div>
 
     <script>
-      Moyasar.init({
-        element: ".mysr-form",
-        amount: 1000,
-        currency: "SAR",
-        description: "Coffee Order #1",
-        publishable_api_key: "pk_test_HHc9AtUvnHQrUrQ5EtwCanDDEH5amJEvGcirwuec",
-        callback_url:
-          "https://payment-eta-inky.vercel.app/Message.html/",
-        methods: ["creditcard", "stcpay"],
-        // on_completed: function (payment) {
-        //   return new Promise(function (resolve, reject) {
-        //     console.log(payment);
-        //     // // savePayment is just an example, your usage may vary.
-        //     // if (savePayment(payment)) {
-        //     //   resolve({});
-        //     // } else {
-        //     //   reject();
-        //     // }
-        //   });
-        // },
-      });
+        // Extract query parameters from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const message = urlParams.get('message');
+
+        // Display success or failure based on status
+        document.addEventListener("DOMContentLoaded", function() {
+            const paymentMessage = document.getElementById('paymentMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (status === 'paid') {
+                paymentMessage.textContent = message;
+                paymentMessage.classList.remove('hidden');
+                
+                // After 5 seconds, send message to ReactNativeWebView
+                setTimeout(function() {
+                    window.ReactNativeWebView.postMessage('payment_success');
+                }, 5000);
+            } else {
+                errorMessage.textContent = message || 'Payment verification failed!';
+                errorMessage.classList.remove('hidden');
+                setTimeout(function() {
+                    window.ReactNativeWebView.postMessage('payment_failed');
+                }, 5000);
+            }
+        });
     </script>
-  </body>
+</body>
 </html>
