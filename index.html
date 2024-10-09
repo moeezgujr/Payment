@@ -50,26 +50,24 @@
     </div>
 
     <script>
+      // Extract URL parameters using URLSearchParams
+      const queryParams = new URLSearchParams(window.location.search);
+      const userId = queryParams.get('userId');  // Get userId from URL
+      const amount = queryParams.get('amount');  // Get amount from URL
+      
+      // Log the extracted parameters (for debugging purposes)
+      console.log(`User ID: ${userId}`);
+      console.log(`Amount: ${amount}`);
+
+      // Initialize the Moyasar payment form with dynamic parameters
       Moyasar.init({
         element: ".mysr-form",
-        amount: 1000,
+        amount: amount ? (parseInt(amount) * 100) : 1400, // Amount in smallest unit
         currency: "SAR",
-        description: "Musaro Payment",
+        description: `Payment for User ${userId}`, // Dynamic description based on userId
         publishable_api_key: "pk_test_HHc9AtUvnHQrUrQ5EtwCanDDEH5amJEvGcirwuec",
-        callback_url:
-          "https://payment-eta-inky.vercel.app/Message.html/",
+        callback_url: "https://payment-eta-inky.vercel.app/Message.html/",
         methods: ["creditcard", "stcpay"],
-        // on_completed: function (payment) {
-        //   return new Promise(function (resolve, reject) {
-        //     console.log(payment);
-        //     // // savePayment is just an example, your usage may vary.
-        //     // if (savePayment(payment)) {
-        //     //   resolve({});
-        //     // } else {
-        //     //   reject();
-        //     // }
-        //   });
-        // },
       });
     </script>
   </body>
