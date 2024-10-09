@@ -1,40 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Verification</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Moyasar payment form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css"
+    />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+    <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
     <style>
-        .hidden {
-            display: none;
-        }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
 
-        #paymentMessage {
-            font-size: 18px;
-            font-weight: bold;
-            color: green;
-            text-align: center;
-            padding: 20px;
-            border: 2px solid green;
-            border-radius: 5px;
-            margin-top: 20px;
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      .mysr-form {
+        width: 90%;
+        max-width: 360px;
+        margin: 40px 0;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .mysr-form {
+          width: 90%;
+          max-width: none;
         }
+      }
     </style>
-</head>
-<body>
-    <div id="paymentMessage" class="hidden">Payment is successfully verified!</div>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="mysr-form"></div>
+    </div>
 
     <script>
-        // This could be replaced by your actual payment verification logic
-        const isPaymentVerified = true;
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const paymentMessage = document.getElementById('paymentMessage');
-            
-            if (true) {
-                paymentMessage.classList.remove('hidden');
-            }
-        });
+      Moyasar.init({
+        element: ".mysr-form",
+        amount: 1000,
+        currency: "SAR",
+        description: "Coffee Order #1",
+        publishable_api_key: "pk_test_HHc9AtUvnHQrUrQ5EtwCanDDEH5amJEvGcirwuec",
+        callback_url:
+          "https://payment-eta-inky.vercel.app/Message.html/",
+        methods: ["creditcard", "stcpay"],
+        // on_completed: function (payment) {
+        //   return new Promise(function (resolve, reject) {
+        //     console.log(payment);
+        //     // // savePayment is just an example, your usage may vary.
+        //     // if (savePayment(payment)) {
+        //     //   resolve({});
+        //     // } else {
+        //     //   reject();
+        //     // }
+        //   });
+        // },
+      });
     </script>
-</body>
+  </body>
 </html>
